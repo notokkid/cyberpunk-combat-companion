@@ -42,7 +42,8 @@ export class CombatService {
   }
 
   attackWithNpc(attackingData: AttackingData) {
-    const { damageDice, combatPower } = attackingData.attackingWeapon;
+    const { damageDice, combatPower, id } = attackingData.attackingWeapon;
+    const attackingNpcId = attackingData.attackingNpcId;
     // Roll to hit
     const hitRoll = this.rollDice(10, combatPower);
     // Roll Damage
@@ -55,8 +56,15 @@ export class CombatService {
     }
 
     // Update attacks this turn
-
-    // Update has attacked this turn
+    this._currentCombat.npcs.forEach((npc: Npc) => {
+      if (npc.id === attackingNpcId) {
+        npc.weapons.forEach((weapon: Weapon) => {
+          if (weapon.id === id) {
+            weapon.timesAttacked++;
+          }
+        });
+      }
+    });
 
     // Emit new state
     const damageData: DamageRollData = {
@@ -64,6 +72,8 @@ export class CombatService {
       damageRollArray,
       damageRollSum,
     };
+
+    this.currentCombatSubject.next(this._currentCombat);
 
     return damageData;
   }
@@ -77,7 +87,15 @@ export class CombatService {
     this.currentCombatSubject.next(this._currentCombat);
   }
 
-  endCombatTurn() {}
+  endCombatTurn() {
+    this._currentCombat.npcs.forEach((npc: Npc) => {
+      npc.weapons.forEach((weapon: Weapon) => {
+        weapon.timesAttacked = 0;
+      });
+    });
+    this._currentCombat.currentTurn++;
+    this.currentCombatSubject.next(this._currentCombat);
+  }
 
   private rollDice(sides: number, combatBonus: number) {
     return Math.floor(Math.random() * sides + 1) + combatBonus;

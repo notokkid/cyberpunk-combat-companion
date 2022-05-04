@@ -1,6 +1,9 @@
 <mat-toolbar color="primary">
   <span>Combat Companion</span>
 </mat-toolbar>
+<mat-toolbar *ngIf="currentCombat?.isActive">
+  <span>Current Turn: {{ currentCombat?.currentTurn }}</span>
+</mat-toolbar>
 <div class="combat-actions-container">
   <button
     mat-raised-button
@@ -18,7 +21,12 @@
   >
     Add NPC
   </button>
-  <button mat-raised-button color="accent" *ngIf="currentCombat?.isActive">
+  <button
+    mat-raised-button
+    color="accent"
+    *ngIf="currentCombat?.isActive"
+    (click)="endCurrentCombatTurn()"
+  >
     Next Turn
   </button>
   <button

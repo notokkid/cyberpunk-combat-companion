@@ -22,7 +22,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.currentCombatSubscription =
       this.combatService.currentCombatSubject.subscribe((combat: Combat) => {
         if (combat) {
-          console.log(combat);
           this.currentCombat = combat;
         }
       });
@@ -36,13 +35,15 @@ export class AppComponent implements OnInit, OnDestroy {
     this.combatService.endCombat();
   }
 
+  endCurrentCombatTurn() {
+    this.combatService.endCombatTurn();
+  }
+
   openAddNpcDialog() {
     const dialogRef = this.dialog.open(AddNpcDialogComponent, {
       width: '95%',
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-      console.log(result);
       if (result) {
         this.combatService.addNpcToCombat(result);
       }

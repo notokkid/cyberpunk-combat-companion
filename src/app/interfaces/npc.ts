@@ -10,5 +10,4 @@ export interface Npc {
   headStoppingPower: number;
   bodyStoppingPower: number;
   isDead: boolean;
-  attackedThisTurn: boolean;
 }

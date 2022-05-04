@@ -1,8 +1,12 @@
-<div class="attack-stats">
+<div class="attack-stats" *ngIf="!attackBlocker; else attackBlocked">
   <p class="attack-stats-text">Hit Roll: {{ combatData.hitRoll }}</p>
   <p class="attack-stats-text">Damage Sum: {{ combatData.damageRollSum }}</p>
   <h4>Damage Dice</h4>
   <div class="dice-wrapper">
-    <p class="single-dice" *ngFor="let dice of combatData.damageRollArray">{{ dice }}</p>
+    <p class="single-dice" *ngFor="let dice of combatData.damageRollArray">
+      {{ dice }}
+    </p>
   </div>
 </div>
+
+<ng-template #attackBlocked> You can't attack any more this turn. </ng-template>
