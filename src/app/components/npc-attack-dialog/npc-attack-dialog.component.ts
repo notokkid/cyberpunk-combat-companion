@@ -20,7 +20,6 @@ export class NpcAttackDialogComponent implements OnInit {
 
   ngOnInit(): void {
     const { timesAttacked, rateOfFire } = this.attackingData.attackingWeapon;
-    console.log(this.attackingData);
     if (timesAttacked >= rateOfFire) {
       this.attackBlocker = true;
     } else {
