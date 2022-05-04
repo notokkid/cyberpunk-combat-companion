@@ -1,0 +1,40 @@
+<mat-toolbar color="primary">
+  <span>Combat Companion</span>
+</mat-toolbar>
+<div class="combat-actions-container">
+  <button
+    mat-raised-button
+    color="primary"
+    *ngIf="!currentCombat?.isActive"
+    (click)="startCombat()"
+  >
+    Start Combat
+  </button>
+  <button
+    mat-raised-button
+    color="accent"
+    *ngIf="currentCombat?.isActive"
+    (click)="openAddNpcDialog()"
+  >
+    Add NPC
+  </button>
+  <button mat-raised-button color="accent" *ngIf="currentCombat?.isActive">
+    Next Turn
+  </button>
+  <button
+    mat-raised-button
+    color="warn"
+    *ngIf="currentCombat?.isActive"
+    (click)="endCombat()"
+  >
+    End Combat
+  </button>
+</div>
+
+<div class="combat-npc-container">
+  <app-npc-card
+    *ngFor="let currentNpc of currentCombat?.npcs"
+    [npc]="currentNpc"
+    [actionsAvailable]="npcCardActionsAvailable"
+  ></app-npc-card>
+</div>

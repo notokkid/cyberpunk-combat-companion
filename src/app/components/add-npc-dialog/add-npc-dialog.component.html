@@ -1,0 +1,12 @@
+<div class="parent-wrapper">
+  <div *ngFor="let currentNpc of npcList" class="npc-dialog-wrapper">
+    <app-npc-card
+      [npc]="currentNpc"
+      [actionsAvailable]="npcCardActionsAvailable"
+    ></app-npc-card>
+    <button mat-button (click)="onCancelClick()">Cancel</button>
+    <button mat-button [mat-dialog-close]="currentNpc" cdkFocusInitial>
+      Add
+    </button>
+  </div>
+</div>
