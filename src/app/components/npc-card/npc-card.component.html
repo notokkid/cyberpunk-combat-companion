@@ -3,19 +3,19 @@
     <mat-card-subtitle>{{ npc.name }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <p class="card-stats">Head Armor: {{ npc.headStoppingPower }}</p>
     <p class="card-stats">Body Armor: {{ npc.bodyStoppingPower }}</p>
     <p class="card-stats">Current Health: {{ npc.currentHealth }}</p>
-    <div class="weapons-wrapper" *ngIf="!actionsAvailable">
+    <div class="weapons-wrapper">
       <div class="card-stats weapon-stats" *ngFor="let weapon of npc.weapons">
         <p>Weapon: {{ weapon.name }}</p>
         <p>Weapon Damage: {{ weapon.damageDice }}d6</p>
+        <p>Rate of Fire: {{ weapon.rateOfFire }}</p>
       </div>
     </div>
   </mat-card-content>
   <mat-card-actions *ngIf="actionsAvailable">
     <div class="health-actions">
-      <h3 style="margin: 0">Track Health</h3>
+      <h3 style="margin: 0;">Track Health</h3>
       <button mat-mini-fab color="accent" (click)="adjustNpcHealth(1)">
         <mat-icon>add</mat-icon>
       </button>

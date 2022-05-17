@@ -4,7 +4,6 @@ import { UUID } from 'angular2-uuid';
 import { Npc } from '../interfaces/npc';
 import { Subject } from 'rxjs';
 import { CombatRepositoryService } from './combat-repository.service';
-import { Weapon } from '../interfaces/weapon';
 import { AttackingData } from '../interfaces/attacking-data';
 import { DamageRollData } from '../interfaces/damage-roll-data';
 
@@ -42,8 +41,7 @@ export class CombatService {
   }
 
   attackWithNpc(attackingData: AttackingData) {
-    const { damageDice, combatPower, id } = attackingData.attackingWeapon;
-    const attackingNpcId = attackingData.attackingNpcId;
+    const { damageDice, combatPower } = attackingData.attackingWeapon;
     // Roll to hit
     const hitRoll = this.rollDice(10, combatPower);
     // Roll Damage
@@ -55,17 +53,6 @@ export class CombatService {
       damageRollSum += diceRoll;
     }
 
-    // Update attacks this turn
-    this._currentCombat.npcs.forEach((npc: Npc) => {
-      if (npc.id === attackingNpcId) {
-        npc.weapons.forEach((weapon: Weapon) => {
-          if (weapon.id === id) {
-            weapon.timesAttacked++;
-          }
-        });
-      }
-    });
-
     // Emit new state
     const damageData: DamageRollData = {
       hitRoll,
@@ -74,7 +61,6 @@ export class CombatService {
     };
 
     this.currentCombatSubject.next(this._currentCombat);
-
     return damageData;
   }
 
@@ -88,11 +74,6 @@ export class CombatService {
   }
 
   endCombatTurn() {
-    this._currentCombat.npcs.forEach((npc: Npc) => {
-      npc.weapons.forEach((weapon: Weapon) => {
-        weapon.timesAttacked = 0;
-      });
-    });
     this._currentCombat.currentTurn++;
     this.currentCombatSubject.next(this._currentCombat);
   }

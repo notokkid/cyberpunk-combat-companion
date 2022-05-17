@@ -4,45 +4,45 @@
 <mat-toolbar *ngIf="currentCombat?.isActive">
   <span>Current Turn: {{ currentCombat?.currentTurn }}</span>
 </mat-toolbar>
-<div class="combat-actions-container">
-  <button
-    mat-raised-button
-    color="primary"
-    *ngIf="!currentCombat?.isActive"
-    (click)="startCombat()"
-  >
-    Start Combat
-  </button>
-  <button
-    mat-raised-button
-    color="accent"
-    *ngIf="currentCombat?.isActive"
-    (click)="openAddNpcDialog()"
-  >
-    Add NPC
-  </button>
-  <button
-    mat-raised-button
-    color="accent"
-    *ngIf="currentCombat?.isActive"
-    (click)="endCurrentCombatTurn()"
-  >
-    Next Turn
-  </button>
-  <button
-    mat-raised-button
-    color="warn"
-    *ngIf="currentCombat?.isActive"
-    (click)="endCombat()"
-  >
-    End Combat
-  </button>
-</div>
+<div class="container">
+  <div class="combat-actions-container">
+    <button
+      mat-raised-button
+      color="primary"
+      *ngIf="!currentCombat?.isActive"
+      (click)="startCombat()"
+    >
+      Start Combat
+    </button>
+    <button
+      mat-raised-button
+      color="accent"
+      *ngIf="currentCombat?.isActive"
+      (click)="endCurrentCombatTurn()"
+    >
+      Next Turn
+    </button>
+    <button
+      mat-raised-button
+      color="warn"
+      *ngIf="currentCombat?.isActive"
+      (click)="endCombat()"
+    >
+      End Combat
+    </button>
+  </div>
 
-<div class="combat-npc-container">
-  <app-npc-card
-    *ngFor="let currentNpc of currentCombat?.npcs"
-    [npc]="currentNpc"
-    [actionsAvailable]="npcCardActionsAvailable"
-  ></app-npc-card>
+  <div class="combat-npc-container">
+    <app-npc-card
+      *ngFor="let currentNpc of currentCombat?.npcs"
+      [npc]="currentNpc"
+      [actionsAvailable]="npcCardActionsAvailable"
+    ></app-npc-card>
+  </div>
+  
+  <h1 style="color: whitesmoke">NPC List</h1>
+  <button mat-raised-button color="primary" (click)="toggleNpcList()">
+    Toggle Npc List
+  </button>
+  <app-add-npc-page *ngIf="npcListVisible"></app-add-npc-page>
 </div>

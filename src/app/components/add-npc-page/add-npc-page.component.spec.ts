@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddNpcDialogComponent } from './add-npc-dialog.component';
+import { AddNpcPageComponent } from './add-npc-page.component';
 
-describe('AddNpcDialogComponent', () => {
-  let component: AddNpcDialogComponent;
-  let fixture: ComponentFixture<AddNpcDialogComponent>;
+describe('AddNpcPageComponent', () => {
+  let component: AddNpcPageComponent;
+  let fixture: ComponentFixture<AddNpcPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddNpcDialogComponent ]
+      declarations: [ AddNpcPageComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddNpcDialogComponent);
+    fixture = TestBed.createComponent(AddNpcPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

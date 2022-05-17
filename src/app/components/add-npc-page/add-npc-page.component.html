@@ -4,8 +4,7 @@
       [npc]="currentNpc"
       [actionsAvailable]="npcCardActionsAvailable"
     ></app-npc-card>
-    <button mat-button (click)="onCancelClick()">Cancel</button>
-    <button mat-button [mat-dialog-close]="currentNpc" cdkFocusInitial>
+    <button mat-button color="primary" (click)="addNpcToCombat(currentNpc)">
       Add
     </button>
   </div>

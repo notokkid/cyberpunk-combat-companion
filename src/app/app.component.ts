@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CombatService } from './services/combat.service';
 import { Combat } from './interfaces/combat';
 import { MatDialog } from '@angular/material/dialog';
-import { AddNpcDialogComponent } from './components/add-npc-dialog/add-npc-dialog.component';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -15,6 +14,7 @@ export class AppComponent implements OnInit, OnDestroy {
   currentCombat: Combat;
   currentCombatSubscription: Subscription;
   npcCardActionsAvailable: boolean = true;
+  npcListVisible: boolean = false;
 
   constructor(private combatService: CombatService, public dialog: MatDialog) {}
 
@@ -39,15 +39,8 @@ export class AppComponent implements OnInit, OnDestroy {
     this.combatService.endCombatTurn();
   }
 
-  openAddNpcDialog() {
-    const dialogRef = this.dialog.open(AddNpcDialogComponent, {
-      width: '95%',
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.combatService.addNpcToCombat(result);
-      }
-    });
+  toggleNpcList() {
+    this.npcListVisible = !this.npcListVisible;
   }
 
   ngOnDestroy(): void {}
